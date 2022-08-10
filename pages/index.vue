@@ -1,11 +1,15 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6" />
-  </v-row>
+  <base-input-search v-model="tmp" />
 </template>
 
 <script>
 export default {
-  name: 'IndexPage'
+  name: 'IndexPage',
+
+  data () {
+    return {
+      tmp: ''
+    }
+  }
 }
 </script>

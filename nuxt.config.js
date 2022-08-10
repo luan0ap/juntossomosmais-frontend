@@ -56,26 +56,23 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
-        dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
+        light: {
+          info: '#0367A6',
           warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+          success: '#818C2B',
+          primary: '#403939',
+          secondary: '#0D0D0D',
+          accent: '#0367A6',
+          error: '#A62424'
         }
+
       }
     }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  },
-
-  storybook: {
-    // Options
   }
 }
