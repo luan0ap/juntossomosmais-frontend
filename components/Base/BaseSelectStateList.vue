@@ -20,7 +20,6 @@
     </v-list-item>
 
     <v-list-item
-      v-if="showLoadMoreBtn"
       dense
       tag="li"
     >
@@ -31,9 +30,9 @@
             plain
             :ripple="false"
             class="pa-0"
-            @click="loadMore"
+            @click="isLoadMoreBtnInative = !isLoadMoreBtnInative"
           >
-            Ver Todos
+            {{ isLoadMoreBtnInative ? 'Ver Todos' : 'Ver menos' }}
           </v-btn>
         </div>
       </v-list-item-content>
@@ -43,37 +42,41 @@
 
 <script>
 import states from '@/mixins/states'
+
 export default {
   name: 'BaseSelectStateList',
 
   mixins: [states],
 
+  props: {
+    loadedContentLength: {
+      validator (value) {
+        return (typeof value === 'string' || typeof value === 'number') && Number(value) > 0
+      },
+      default: 5
+    }
+  },
+
   data () {
     return {
       selected: [],
-      loadedContentLength: 5
+      isLoadMoreBtnInative: true
     }
   },
 
   computed: {
     _states () {
-      return this.states.slice(0, this.loadedContentLength)
-    },
+      if (this.isLoadMoreBtnInative) {
+        return this.states.slice(0, this.loadedContentLength)
+      }
 
-    showLoadMoreBtn () {
-      return this.states.length !== this._states.length
+      return this.states
     }
   },
 
   watch: {
     selected (val) {
-      this.$emit('update', val)
-    }
-  },
-
-  methods: {
-    loadMore () {
-      this.loadedContentLength = this.states.length
+      this.$emit('input', val)
     }
   }
 }
