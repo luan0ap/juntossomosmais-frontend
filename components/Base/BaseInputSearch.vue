@@ -21,6 +21,13 @@ export default {
     value: {
       type: String,
       default: ''
+    },
+
+    debounceTime: {
+      validator (value) {
+        return (typeof value === 'string' || typeof value === 'number') && Number(value) > 0
+      },
+      default: 500
     }
   },
 
@@ -33,7 +40,7 @@ export default {
   created () {
     this.debounceFn = debounce((val) => {
       this.$emit('input', val)
-    }, 2000)
+    }, Number(this.debounceTime))
   },
 
   methods: {
